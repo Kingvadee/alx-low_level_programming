@@ -1,43 +1,52 @@
 #include "main.h"
-int check_pal(char *s, int i, int len);
-int _stren_recursion(char *s);
+int find_strlen(char *s);
+int check_palindrome(char *s, int len, int index);
+int is_palindrome(char *s);
 /**
- * is_palindrome - checks if a string is palindrome
- * @s: string to reverse
+ * find_strlen - Returns the length of a string.
+ * @s: The string to be measured.
  *
- * Return: 1 if it is, 0 it's not
+ * Return: The length of the string.
  */
-int 'is_palindrome'(char *s)
+int find_strlen(char *s)
 {
-if (*s == 0)
-return (1);
-return (check_pal(s, 0, _strlen_recursion(s)));
+int len = 0;
+if (*(s + len))
+{
+len++;
+len += find_strlen(s + len);
+}
+return (len);
 }
 /**
- * _strlen_recursion - returns the length of a string
- * @s: string to calculate the length of
+ * check_palindrome - Checks if a string is a palindrome.
+ * @s: The string to be checked.
+ * @len: The length of s.
+ * @index: The index of the string to be checked.
  *
- * Return: length of the string
+ * Return: If the string is a palindrome - 1.
+ *         If the string is not a palindrome - 0.
  */
-int _strlen_recursion(char *s)
+int check_palindrome(char *s, int len, int index)
 {
-if (*s == '\0')
+if (s[index] == s[len / 2])
+return (1);
+if (s[index] == s[len - index - 1])
+return (check_palindrome(s, len, index + 1));
 return (0);
-return (1 + _strlen_recursion(s + 1));
 }
 /**
- * check_pal - checks the character recursively for palindrome
- * @s: string to check
- * @a: iterator
- * @len: length of the string
+ * is_palindrome - Checks if a string is a palindrome.
+ * @s: The string to be checked.
  *
- * Return: 1 if palindrome, 0 if not
+ * Return: If the string is a palindrome - 1.
+ *         If the string is not a palindrome - 0.
  */
-int check_pal(char *s, int i, int len)
+int is_palindrome(char *s)
 {
-if (*(s + i) != *(s + len - 1))
-return (0);
-if (i >= len)
+int index = 0;
+int len = find_strlen(s);
+if (!(*s))
 return (1);
-return (check_pal(s, i + 1, len - 1));
+return (check_palindrome(s, len, index));
 }
