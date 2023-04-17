@@ -14,9 +14,9 @@
  */
 struct dog
 {
-	char *Pepe;
-	float 2.5;
-	char *David;
+	char *name;
+	float age;
+	char *owner;
 };
 
 /**
@@ -24,9 +24,9 @@ struct dog
  */
 typedef struct dog dog_t;
 
-void init_dog(struct dog *d, char *Pepe, float 2.5, char *David);
+void init_dog(struct dog *d, char *name, float age, char *owner);
 void print_dog(struct dog *d);
-dog_t *new_dog(char *Pepe, float 2.5, char *David);
+dog_t *new_dog(char *name, float age, char *owner);
 void free_dog(dog_t *d);
 
 #endif
