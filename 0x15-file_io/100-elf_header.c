@@ -1,77 +1,44 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "elf.h"
+#include <elf.h>
 
-void print_magic(char *ptr)
+/**
+ * get_type - determine file type
+ * @ehdr: pointer to struct of ELF header features
+ */
+void get_type(Elf64_Ehdr *ehdr)
 {
-int bytes;
-
-printf("  Magic:  ");
-
-for (bytes = 0; bytes < 16; bytes++)
-printf(" %02x", ptr[bytes]);
-
-printf("\n");
-
+	printf("%-35s", "Type:");
+	switch (ehdr->e_type)
+	{
+	case ET_NONE:
+		printf("NONE (Unknown type)\n");
+		break;
+	case ET_REL:
+		printf("REL (Relocatable file)\n");
+		break;
+	case ET_EXEC:
+		printf("EXEC (Executable file)\n");
+		break;
+	case ET_DYN:
+		printf("DYN (Shared object file)\n");
+		break;
+	case ET_CORE:
+		printf("CORE (Core file)\n");
+		break;
+	}
 }
 
-void print_elf_class(const char *filename)
-{
-Elf64_Ehdr elf_header;
-FILE *fp;
-fp = fopen(filename, "rb");
-if (!fp)
-{
-fprintf(stderr, "Error: could not open file %s\n", filename);
-return;
-}
-/*Read the ELF header from the file*/
-if (fread(&elf_header, sizeof(elf_header), 1, fp) != 1)
-{
-fprintf(stderr, "Error: could not read ELF header from file %s\n", filename);
-fclose(fp);
-return;
-}
-/*Print the class of the ELF file*/
-if (elf_header.e_ident[EI_CLASS] == ELFCLASS32)
-{
-printf("%s is a 32-bit ELF file.\n", filename);
-}
-else if (elf_header.e_ident[EI_CLASS] == ELFCLASS64)
-{
-printf("%s is a 64-bit ELF file.\n", filename);
-}
-else
-{
-printf("%s is not a valid ELF file.\n", filename);
-}
-fclose(fp);
-}
 
-void print_data(char *ptr)
+
+/**
+ * main - entry point for program to get header of ELF file
+ * @argc: arg of count
+ * @argv: arg of array
+ *
+ * Return: 1 on success, error code on failure
+ */
+int main(int argc, char *argv[])
 {
-char data = ptr[5];
-
-printf("  Data:                              2's complement");
-if (data == 1)
-printf(", little endian\n");
-
-if (data == 2)
-printf(", big endian\n");
-}
-
-void print_version(char *ptr)
-{
-int version = ptr[6];
-
-printf("  Version:                           %d", version);
-
-if (version == EV_CURRENT)
-printf(" (current)");
-
-printf("\n");
+	printf("argc:%d, argv:%p\n", argc, (void *)*argv);
+	return (1);
 }
