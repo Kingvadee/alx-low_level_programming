@@ -25,6 +25,9 @@ void get_type(Elf64_Ehdr *ehdr)
 	case ET_CORE:
 		printf("CORE (Core file)\n");
 		break;
+	case Magic:
+		printf("Magic (7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00)\n");
+		break;
 	}
 }
 
