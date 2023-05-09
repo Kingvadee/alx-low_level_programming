@@ -42,6 +42,3 @@ int main(int argc, char *argv[])
 	printf("argc:%d, argv:%p\n", argc, (void *)*argv);
 	return (1);
 }
-
-void print_osabi(char *ptr)
-printf("  OS/ABI:                            ");
